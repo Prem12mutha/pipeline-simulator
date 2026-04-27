@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pipeline Hazard Detector</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <header class="header">
+            <div class="logo">
+                <span style="font-size: 1.5rem; margin-right: 8px;">⚙️</span>
+                <h1>Pipeline Hazard Detector <span>& Resolver</span></h1>
+            </div>
+            <div class="mode-selector">
+                <label>Resolution Mode:</label>
+                <div class="toggle-group" id="mode-toggles">
+                    <button class="mode-btn active" data-mode="none">None</button>
+                    <button class="mode-btn" data-mode="stall">Stall</button>
+                    <button class="mode-btn" data-mode="forwarding">Forwarding</button>
+                </div>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="left-panel">
+                <div class="card editor-card">
+                    <div class="card-header">
+                        <h2>📝 Assembly Code</h2>
+                        <select id="sample-select">
+                            <option value="custom">Custom</option>
+                            <option value="raw">RAW Hazard</option>
+                            <option value="load_use">Load-Use Hazard</option>
+                            <option value="branch">Branch Hazard</option>
+                            <option value="waw">WAW/WAR Hazard</option>
+                        </select>
+                    </div>
+                    <div class="editor-container">
+                        <div class="line-numbers" id="line-numbers">1</div>
+                        <textarea id="code-editor" spellcheck="false" placeholder="Enter assembly code here..."></textarea>
+                    </div>
+                    <div class="controls">
+                        <button id="btn-run" class="btn primary">▶️ Run All</button>
+                        <button id="btn-step" class="btn secondary">⏭️ Step</button>
+                        <button id="btn-reset" class="btn outline">🔄 Reset</button>
+                    </div>
+                </div>
+
+                <div class="card metrics-card">
+                    <div class="card-header">
+                        <h2>📊 Performance Metrics</h2>
+                    </div>
+                    <div class="metrics-grid">
+                        <div class="metric-box">
+                            <span class="metric-label">Cycles</span>
+                            <span class="metric-value" id="val-cycles">0</span>
+                        </div>
+                        <div class="metric-box">
+                            <span class="metric-label">CPI</span>
+                            <span class="metric-value" id="val-cpi">0.0</span>
+                        </div>
+                        <div class="metric-box">
+                            <span class="metric-label">Stalls</span>
+                            <span class="metric-value" id="val-stalls">0</span>
+                        </div>
+                        <div class="metric-box">
+                            <span class="metric-label">Flushes</span>
+                            <span class="metric-value" id="val-flushes">0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="right-panel">
+                <div class="card viz-card">
+                    <div class="card-header">
+                        <h2>🔲 Pipeline Execution</h2>
+                        <div class="legend">
+                            <span class="legend-item"><span class="color-box hazard-raw"></span> RAW</span>
+                            <span class="legend-item"><span class="color-box hazard-war"></span> WAR</span>
+                            <span class="legend-item"><span class="color-box hazard-waw"></span> WAW</span>
+                            <span class="legend-item"><span class="color-box stall"></span> Stall</span>
+                        </div>
+                    </div>
+                    <div class="viz-container" id="viz-container">
+                        <div class="empty-state">Run simulation to view pipeline</div>
+                    </div>
+                </div>
+
+                <div class="card explanation-card">
+                    <div class="card-header">
+                        <h2>ℹ️ Smart Explanations</h2>
+                    </div>
+                    <div class="explanations-container" id="explanations-list">
+                        <div class="empty-state text-sm">No hazards detected yet.</div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
